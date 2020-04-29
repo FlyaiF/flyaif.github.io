@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/new-post/</loc>
+    <lastmod>2020-04-29T11:25:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/</loc>
+    <lastmod>2020-04-29T11:25:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/about/</loc>
+    <lastmod>2020-04-29T11:14:16+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/</loc>
+    <lastmod>2020-04-29T11:14:16+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/use-expect-to-distribute-file-between-hosts/</loc>
+    <lastmod>2020-03-20T16:50:58+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/gridfs-file-download/</loc>
+    <lastmod>2019-07-14T17:20:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/shell-variable/</loc>
+    <lastmod>2018-07-10T17:29:58+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/tags/elasticsearch-memo/</loc>
+    <lastmod>2018-05-03T17:24:16+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/elastic-search-memo/</loc>
+    <lastmod>2018-05-03T17:24:16+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/tags/</loc>
+    <lastmod>2018-05-03T17:24:16+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/javascript-ajax/</loc>
+    <lastmod>2018-03-30T09:26:04+08:00</lastmod>
+  </url>
+  
+</urlset>

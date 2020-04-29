@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Java API 从 GridFS 中下载文件">
+<meta itemprop="description" content="GridFS 文件下载 GridFs 简介 我们在使用MongoDB存储文件的过程中，由于单个 bson 具有大小限制，因此我们不能存储大于这个上限的文件，GridFs 将文件分为若干部分（chunk），每个部分存储为一个独立的document，GridFs 默认的 chunk size 是 255kB，也就是说它将文件按255kB等分，最后一个 chunk 是不足的部分，可能不足 255kB；如果一个文件不足一个 chunk 的大小，那么就存储在一个 chunk，这个里面包含了文件和一些元数据。
+GridFs 的优点  文件的大小超出了 16M 由于单个 bson 大小的限制，因而将文件存放于 GridFs 中。 对于大文件，读取时不想将整个文件载入内存中 由于文件时存放在多个 chunk 中的，读取文件的时候可以部分载入，同时访问文件的时候可以任意跳转，直接跳过某些部分请求感兴趣的部分。例如视频、音频文件。 在多个系统间共享文件 搭建 Mongo 集群，在集群间共享文件。  文件存储结构 files collection files 这个集合里面的每一条记录代表了 GridFs 中的一个文件
+{ &#34;_id&#34;: &lt;objectId&gt;, &#34;length&#34;: &lt;num&gt;, &#34;chunkSize&#34;: &lt;num&gt;, &#34;uploadDate&#34;: &lt;timestamp&gt;, &#34;md5&#34;: &lt;hash&gt;, &#34;filename&#34;: &lt;string&gt;, &#34;contentType&#34;: &lt;string&gt;, &#34;aliases&#34;: &lt;string array&gt;, &#34;metadata&#34;: &lt;any&gt;, }  files._id 文档唯一标识 files.length 文件长度 files.">
+<meta itemprop="datePublished" content="2019-07-14T17:20:04&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-14T17:20:04&#43;08:00" />
+<meta itemprop="wordCount" content="219">
+
+
+
+<meta itemprop="keywords" content="" /><meta property="og:title" content="Java API 从 GridFS 中下载文件" />
+<meta property="og:description" content="GridFS 文件下载 GridFs 简介 我们在使用MongoDB存储文件的过程中，由于单个 bson 具有大小限制，因此我们不能存储大于这个上限的文件，GridFs 将文件分为若干部分（chunk），每个部分存储为一个独立的document，GridFs 默认的 chunk size 是 255kB，也就是说它将文件按255kB等分，最后一个 chunk 是不足的部分，可能不足 255kB；如果一个文件不足一个 chunk 的大小，那么就存储在一个 chunk，这个里面包含了文件和一些元数据。
+GridFs 的优点  文件的大小超出了 16M 由于单个 bson 大小的限制，因而将文件存放于 GridFs 中。 对于大文件，读取时不想将整个文件载入内存中 由于文件时存放在多个 chunk 中的，读取文件的时候可以部分载入，同时访问文件的时候可以任意跳转，直接跳过某些部分请求感兴趣的部分。例如视频、音频文件。 在多个系统间共享文件 搭建 Mongo 集群，在集群间共享文件。  文件存储结构 files collection files 这个集合里面的每一条记录代表了 GridFs 中的一个文件
+{ &#34;_id&#34;: &lt;objectId&gt;, &#34;length&#34;: &lt;num&gt;, &#34;chunkSize&#34;: &lt;num&gt;, &#34;uploadDate&#34;: &lt;timestamp&gt;, &#34;md5&#34;: &lt;hash&gt;, &#34;filename&#34;: &lt;string&gt;, &#34;contentType&#34;: &lt;string&gt;, &#34;aliases&#34;: &lt;string array&gt;, &#34;metadata&#34;: &lt;any&gt;, }  files._id 文档唯一标识 files.length 文件长度 files." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.flyaif.com/posts/gridfs-file-download/" />
+<meta property="article:published_time" content="2019-07-14T17:20:04+08:00" />
+<meta property="article:modified_time" content="2019-07-14T17:20:04+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java API 从 GridFS 中下载文件"/>
+<meta name="twitter:description" content="GridFS 文件下载 GridFs 简介 我们在使用MongoDB存储文件的过程中，由于单个 bson 具有大小限制，因此我们不能存储大于这个上限的文件，GridFs 将文件分为若干部分（chunk），每个部分存储为一个独立的document，GridFs 默认的 chunk size 是 255kB，也就是说它将文件按255kB等分，最后一个 chunk 是不足的部分，可能不足 255kB；如果一个文件不足一个 chunk 的大小，那么就存储在一个 chunk，这个里面包含了文件和一些元数据。
+GridFs 的优点  文件的大小超出了 16M 由于单个 bson 大小的限制，因而将文件存放于 GridFs 中。 对于大文件，读取时不想将整个文件载入内存中 由于文件时存放在多个 chunk 中的，读取文件的时候可以部分载入，同时访问文件的时候可以任意跳转，直接跳过某些部分请求感兴趣的部分。例如视频、音频文件。 在多个系统间共享文件 搭建 Mongo 集群，在集群间共享文件。  文件存储结构 files collection files 这个集合里面的每一条记录代表了 GridFs 中的一个文件
+{ &#34;_id&#34;: &lt;objectId&gt;, &#34;length&#34;: &lt;num&gt;, &#34;chunkSize&#34;: &lt;num&gt;, &#34;uploadDate&#34;: &lt;timestamp&gt;, &#34;md5&#34;: &lt;hash&gt;, &#34;filename&#34;: &lt;string&gt;, &#34;contentType&#34;: &lt;string&gt;, &#34;aliases&#34;: &lt;string array&gt;, &#34;metadata&#34;: &lt;any&gt;, }  files._id 文档唯一标识 files.length 文件长度 files."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Java API 从 GridFS 中下载文件</title>
+	<link rel="stylesheet" href="https://blog.flyaif.com/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://blog.flyaif.com">FlyaiF&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://blog.flyaif.com/posts/">Posts</a>
+				<a href="https://blog.flyaif.com/about/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="mailto:flyaif@outlook.com" target="_blank" rel="noopener me" title="Email"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a><a href="https://github.com/FlyaiF" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://blog.flyaif.com/posts/">Posts</a></li>
+			<li><a href="https://blog.flyaif.com/about/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>2019-19-07</span></div>
+				<h1>Java API 从 GridFS 中下载文件</h1>
+			</header>
+			<div class="content">
+				<h1 id="gridfs-文件下载">GridFS 文件下载<a href="#gridfs-文件下载" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h1>
+<h2 id="gridfs-简介">GridFs 简介<a href="#gridfs-简介" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>我们在使用MongoDB存储文件的过程中，由于单个 bson 具有大小限制，因此我们不能存储大于这个上限的文件，<em>GridFs</em> 将文件分为若干部分（chunk），每个部分存储为一个独立的document，GridFs 默认的 chunk size 是 255kB，也就是说它将文件按255kB等分，最后一个 chunk 是不足的部分，可能不足 255kB；如果一个文件不足一个 chunk 的大小，那么就存储在一个 chunk，这个里面包含了文件和一些元数据。</p>
+<h2 id="gridfs-的优点">GridFs 的优点<a href="#gridfs-的优点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<ol>
+<li>文件的大小超出了 16M
+由于单个 bson 大小的限制，因而将文件存放于 GridFs 中。</li>
+<li>对于大文件，读取时不想将整个文件载入内存中
+由于文件时存放在多个 chunk 中的，读取文件的时候可以部分载入，同时访问文件的时候可以任意跳转，直接跳过某些部分请求感兴趣的部分。例如视频、音频文件。</li>
+<li>在多个系统间共享文件
+搭建 Mongo 集群，在集群间共享文件。</li>
+</ol>
+<h2 id="文件存储结构">文件存储结构<a href="#文件存储结构" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<h3 id="files-collection">files collection<a href="#files-collection" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>files 这个集合里面的每一条记录代表了 GridFs 中的一个文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="err">&lt;objectId&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;length&#34;</span><span class="p">:</span> <span class="err">&lt;num&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;chunkSize&#34;</span><span class="p">:</span> <span class="err">&lt;num&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;uploadDate&#34;</span><span class="p">:</span> <span class="err">&lt;timestamp&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;md5&#34;</span><span class="p">:</span> <span class="err">&lt;hash&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;filename&#34;</span><span class="p">:</span> <span class="err">&lt;string&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;contentType&#34;</span><span class="p">:</span> <span class="err">&lt;string&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;aliases&#34;</span><span class="p">:</span> <span class="err">&lt;string</span> <span class="err">array&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;metadata&#34;</span><span class="p">:</span> <span class="err">&lt;any&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div><ul>
+<li>files._id
+文档唯一标识</li>
+<li>files.length
+文件长度</li>
+<li>files.chunkSize
+每个 chunk 的大小</li>
+<li>files.uploadDate
+文件上传时间</li>
+<li>files.metadata
+额外的元数据，可以存放自定义的一些标识。</li>
+</ul>
+<h3 id="chunks-collection">chunks collection<a href="#chunks-collection" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>chunk 结构</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="err">&lt;ObjectId&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;files_id&#34;</span><span class="p">:</span> <span class="err">&lt;ObjectId&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;n&#34;</span><span class="p">:</span> <span class="err">&lt;num&gt;</span><span class="p">,</span>
+    <span class="nt">&#34;data&#34;</span><span class="p">:</span> <span class="err">&lt;binary&gt;</span>
+<span class="p">}</span>
+</code></pre></div><ul>
+<li>chunks._id
+chunk 的唯一标识</li>
+<li>chunks.files_id
+文件的 id， 对应到 chunk 归属文件的 _id。</li>
+<li>chunks.n
+此 chunk 是文件的额第几个 chunk，从 0 开始。</li>
+<li>chunks.data
+chunk 里面的数据，以 BSON 形式存放。</li>
+</ul>
+<h2 id="调用-java-api-从-gridfs-下载文件">调用 Java api 从 GridFS 下载文件<a href="#调用-java-api-从-gridfs-下载文件" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="n">MongoClient</span> <span class="n">mongoClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MongoClient</span><span class="o">(</span><span class="k">new</span> <span class="n">ServerAddress</span><span class="o">(&lt;</span><span class="n">host</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;));</span>
+    <span class="n">MongoDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">mongoClient</span><span class="o">.</span><span class="na">getDatabase</span><span class="o">(&lt;</span><span class="n">databaseName</span><span class="o">&gt;);</span>
+    <span class="n">GridFSBucket</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">GridFSBucket</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="o">&lt;</span><span class="n">bucketName</span><span class="o">&gt;);</span>
+    <span class="c1">// 下载到文件中
+</span><span class="c1"></span>    <span class="n">FileOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(&lt;</span><span class="n">filename</span><span class="o">&gt;);</span>
+    <span class="n">bucket</span><span class="o">.</span><span class="na">downloadToStream</span><span class="o">(</span><span class="k">new</span> <span class="n">ObjectId</span><span class="o">(&lt;</span><span class="n">id</span><span class="o">&gt;),</span> <span class="n">out</span><span class="o">);</span>
+    <span class="n">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</code></pre></div><p>从 mongo 的 GridFSBucket 中打开一个 stream 的时候要注意，如果这个文件存在于多个 chunk 中，无法一次性读取全部数据，必须
+分次读取。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="n">MongoClient</span> <span class="n">mongoClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MongoClient</span><span class="o">(</span><span class="k">new</span> <span class="n">ServerAddress</span><span class="o">(&lt;</span><span class="n">host</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;));</span>
+    <span class="n">MongoDatabase</span> <span class="n">db</span> <span class="o">=</span> <span class="n">mongoClient</span><span class="o">.</span><span class="na">getDatabase</span><span class="o">(&lt;</span><span class="n">databaseName</span><span class="o">&gt;);</span>
+    <span class="n">GridFSBucket</span> <span class="n">bucket</span> <span class="o">=</span> <span class="n">GridFSBucket</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="o">&lt;</span><span class="n">bucketName</span><span class="o">&gt;);</span>
+    <span class="n">GridFSDownloadStream</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="na">openDownloadStream</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">(&lt;</span><span class="n">id</span><span class="o">&gt;));</span>
+    <span class="n">ByteArrayOutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">(</span><span class="n">stream</span><span class="o">.</span><span class="na">available</span><span class="o">());</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+    <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">((</span><span class="n">size</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">bytes</span><span class="o">))</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">bytes</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">size</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">bytes</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+    <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+    <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
+    <span class="n">stream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</code></pre></div><h1 id="引用">引用<a href="#引用" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h1>
+<blockquote>
+<p><a href="https://stackoverflow.com/questions/36175190/gridfsdownloadstream-can-not-read-all-data">GridFSDownloadStream can not read all data</a></p>
+</blockquote>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-14 17:20</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://blog.flyaif.com/posts/use-expect-to-distribute-file-between-hosts/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;</span><br><span>使用 expect 和 scp 分发文件给其他主机</span>
+			</a>
+			<a class="prev-post" href="https://blog.flyaif.com/posts/shell-variable/">
+				<span class="post-nav-label">&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Shell Variable</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2020 <a href="https://blog.flyaif.com">FlyaiF</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://blog.flyaif.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+	<script src="https://blog.flyaif.com/js/bundle.min.4a9a0ac3d2217822c7865b4161e6c2a71de1d70492264337755427898dd718f6.js" integrity="sha256-SpoKw9IheCLHhltBYebCpx3h1wSSJkM3dVQniY3XGPY=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

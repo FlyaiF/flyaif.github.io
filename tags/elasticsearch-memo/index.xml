@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ElasticSearch memo on FlyaiF&#39;s Blog</title>
+    <link>https://blog.flyaif.com/tags/elasticsearch-memo/</link>
+    <description>Recent content in ElasticSearch memo on FlyaiF&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 03 May 2018 17:24:16 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.flyaif.com/tags/elasticsearch-memo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ElasticSearch 简单语法备忘</title>
+      <link>https://blog.flyaif.com/posts/elastic-search-memo/</link>
+      <pubDate>Thu, 03 May 2018 17:24:16 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/elastic-search-memo/</guid>
+      <description>Elastic Search 查询备忘  使用get请求查询所有数据   GET 127.0.0.1/index/type/_search
+ 使用get请求根据id来查询某一条特定的数据   GET 127.0.0.1/index/type/1
+ 表示查询id为1的这一条数据。如果找到了返回这条数据found为true，否则found返回false
+// 成功找到数据时返回的数据 { &amp;#34;_index&amp;#34;: &amp;#34;index&amp;#34;, &amp;#34;_type&amp;#34;: &amp;#34;type&amp;#34;, &amp;#34;_id&amp;#34;: &amp;#34;1&amp;#34;, &amp;#34;_version&amp;#34;: 1, &amp;#34;found&amp;#34;: true, &amp;#34;_source&amp;#34;: { &amp;#34;student_id&amp;#34;: 1, &amp;#34;last_name&amp;#34;:&amp;#34;smith&amp;#34;, &amp;#34;first_name&amp;#34;:&amp;#34;john&amp;#34;, &amp;#34;age&amp;#34;: 23 } } // 没有找到数据时的返回数据 { &amp;#34;_index&amp;#34;: &amp;#34;index&amp;#34;, &amp;#34;_type&amp;#34;: &amp;#34;type&amp;#34;, &amp;#34;_id&amp;#34;: &amp;#34;2&amp;#34;, &amp;#34;found&amp;#34;: false } 使用get请求的简单搜索   GET 127.0.0.1/index/type/_search?q=last_name:smith
+ 表示查询last_name为smith的数据,为精确搜索。 在ElasticSearch中这种查询称为查询字符串，如果要查询多个字段可以如下表示
+ +last_name:smith+first_name:john 如果我们不指定要查询的字段而是直接向es请求一个搜索字符串会这么样呢
+ GET 127.0.0.1/index/type/_search?q=smith
+ 这样子es会在隐含的_all字段上面查询所有匹配smith的结果,默认情况下es会将所有字段拼接成一个大的字段，分词后匹配。
+使用post请求的复杂搜索   POST 127.</description>
+    </item>
+    
+  </channel>
+</rss>

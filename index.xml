@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FlyaiF&#39;s Blog</title>
+    <link>https://blog.flyaif.com/</link>
+    <description>Recent content on FlyaiF&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 29 Apr 2020 11:14:16 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.flyaif.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>New Post</title>
+      <link>https://blog.flyaif.com/posts/new-post/</link>
+      <pubDate>Wed, 29 Apr 2020 11:25:40 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/new-post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://blog.flyaif.com/about/</link>
+      <pubDate>Wed, 29 Apr 2020 11:14:16 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/about/</guid>
+      <description>邮箱： Zmx5YWlmQG91dGxvb2suY29tCg==</description>
+    </item>
+    
+    <item>
+      <title>使用 expect 和 scp 分发文件给其他主机</title>
+      <link>https://blog.flyaif.com/posts/use-expect-to-distribute-file-between-hosts/</link>
+      <pubDate>Fri, 20 Mar 2020 16:50:58 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/use-expect-to-distribute-file-between-hosts/</guid>
+      <description>由于要将一个 jar 包拷贝到集群的每个主机上，又要经常改改代码再测试。于是找到了使用 expect 模拟交互，使用 scp 将文件拷贝到一个列表中的所有主机上。
+什么是 expect  expect - programmed dialogue with interactive programs, Version 5
+ expect 是一个可以编程的，和其他程序交互的程序。根据编写的脚本，expect 可以和其他程序交互，并且对响应作出反应。
+什么时候使用 expect 在使用 passwd 为用户修改密码的时候，会要求我们输入密码，这个时候 passwd 会 hang 等待我们输入密码，对于在自动化的场景中，假设我们想预先设置这个值，有什么办法呢？
+对于这种情况，passwd 提供了一个 &amp;ndash;stdin 的选项，可以用管道符从标准输入提供一个密码，例：
+echo myPassword | passwd myUser --stdin
+但是有些命令没有提供这样的选项，我们可以使用 expect 来代替我们进行交互。
+简单使用 expect 底层是基于 Tcl (Tool Command Line) 的，所以 expect 的语法与 Tcl 一致。
+常用命令   spawn
+运行一个脚本或者程序。
+example: spawn scp file user@host:path
+  expect</description>
+    </item>
+    
+    <item>
+      <title>Java API 从 GridFS 中下载文件</title>
+      <link>https://blog.flyaif.com/posts/gridfs-file-download/</link>
+      <pubDate>Sun, 14 Jul 2019 17:20:04 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/gridfs-file-download/</guid>
+      <description>GridFS 文件下载 GridFs 简介 我们在使用MongoDB存储文件的过程中，由于单个 bson 具有大小限制，因此我们不能存储大于这个上限的文件，GridFs 将文件分为若干部分（chunk），每个部分存储为一个独立的document，GridFs 默认的 chunk size 是 255kB，也就是说它将文件按255kB等分，最后一个 chunk 是不足的部分，可能不足 255kB；如果一个文件不足一个 chunk 的大小，那么就存储在一个 chunk，这个里面包含了文件和一些元数据。
+GridFs 的优点  文件的大小超出了 16M 由于单个 bson 大小的限制，因而将文件存放于 GridFs 中。 对于大文件，读取时不想将整个文件载入内存中 由于文件时存放在多个 chunk 中的，读取文件的时候可以部分载入，同时访问文件的时候可以任意跳转，直接跳过某些部分请求感兴趣的部分。例如视频、音频文件。 在多个系统间共享文件 搭建 Mongo 集群，在集群间共享文件。  文件存储结构 files collection files 这个集合里面的每一条记录代表了 GridFs 中的一个文件
+{ &amp;#34;_id&amp;#34;: &amp;lt;objectId&amp;gt;, &amp;#34;length&amp;#34;: &amp;lt;num&amp;gt;, &amp;#34;chunkSize&amp;#34;: &amp;lt;num&amp;gt;, &amp;#34;uploadDate&amp;#34;: &amp;lt;timestamp&amp;gt;, &amp;#34;md5&amp;#34;: &amp;lt;hash&amp;gt;, &amp;#34;filename&amp;#34;: &amp;lt;string&amp;gt;, &amp;#34;contentType&amp;#34;: &amp;lt;string&amp;gt;, &amp;#34;aliases&amp;#34;: &amp;lt;string array&amp;gt;, &amp;#34;metadata&amp;#34;: &amp;lt;any&amp;gt;, }  files._id 文档唯一标识 files.length 文件长度 files.</description>
+    </item>
+    
+    <item>
+      <title>Shell Variable</title>
+      <link>https://blog.flyaif.com/posts/shell-variable/</link>
+      <pubDate>Tue, 10 Jul 2018 17:29:58 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/shell-variable/</guid>
+      <description>Shell 变量 Shell中有不少内置的变量，使用好他们可以使得我们的shell编程更加快捷，可读性也更好   $1, $2, ... $9
+1到9分别表示调用shell的时候传递的变量。
+cat var4.sh #!/bin/sh echo $1 $2 $3 $ ./var5.sh 1 2 3 1 2 3 ``
+  $0
+当前运行脚本的名字，具体取决于调用脚本的时候所使用的方式
+$ cat var5.sh #!/bin/sh echo $0 $ ./var5.sh ./var5.sh $ /bin/sh var5.sh var5.sh ``
+  $#
+向脚本内传递的变量个数
+$ cat var6.sh #!/bin/sh echo $# $ ./var6.sh 0 $ ./var6.sh 1 2 3 3 ``
+  $@, $*
+向脚本内传递的所有具体变量
+$ cat var7.</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 简单语法备忘</title>
+      <link>https://blog.flyaif.com/posts/elastic-search-memo/</link>
+      <pubDate>Thu, 03 May 2018 17:24:16 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/elastic-search-memo/</guid>
+      <description>Elastic Search 查询备忘  使用get请求查询所有数据   GET 127.0.0.1/index/type/_search
+ 使用get请求根据id来查询某一条特定的数据   GET 127.0.0.1/index/type/1
+ 表示查询id为1的这一条数据。如果找到了返回这条数据found为true，否则found返回false
+// 成功找到数据时返回的数据 { &amp;#34;_index&amp;#34;: &amp;#34;index&amp;#34;, &amp;#34;_type&amp;#34;: &amp;#34;type&amp;#34;, &amp;#34;_id&amp;#34;: &amp;#34;1&amp;#34;, &amp;#34;_version&amp;#34;: 1, &amp;#34;found&amp;#34;: true, &amp;#34;_source&amp;#34;: { &amp;#34;student_id&amp;#34;: 1, &amp;#34;last_name&amp;#34;:&amp;#34;smith&amp;#34;, &amp;#34;first_name&amp;#34;:&amp;#34;john&amp;#34;, &amp;#34;age&amp;#34;: 23 } } // 没有找到数据时的返回数据 { &amp;#34;_index&amp;#34;: &amp;#34;index&amp;#34;, &amp;#34;_type&amp;#34;: &amp;#34;type&amp;#34;, &amp;#34;_id&amp;#34;: &amp;#34;2&amp;#34;, &amp;#34;found&amp;#34;: false } 使用get请求的简单搜索   GET 127.0.0.1/index/type/_search?q=last_name:smith
+ 表示查询last_name为smith的数据,为精确搜索。 在ElasticSearch中这种查询称为查询字符串，如果要查询多个字段可以如下表示
+ +last_name:smith+first_name:john 如果我们不指定要查询的字段而是直接向es请求一个搜索字符串会这么样呢
+ GET 127.0.0.1/index/type/_search?q=smith
+ 这样子es会在隐含的_all字段上面查询所有匹配smith的结果,默认情况下es会将所有字段拼接成一个大的字段，分词后匹配。
+使用post请求的复杂搜索   POST 127.</description>
+    </item>
+    
+    <item>
+      <title>Javascript AJAX简介</title>
+      <link>https://blog.flyaif.com/posts/javascript-ajax/</link>
+      <pubDate>Fri, 30 Mar 2018 09:26:04 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/javascript-ajax/</guid>
+      <description>Javascript ajax 请求 1.ajax简介
+ 全称：Asynchronous Javascript And Xml 普通页面刷新的时候不但从服务器获取了变化的部分，连同不变化的固定的部分也刷新了，这不变的一部分占用的网络带宽和服务器负载是没有必要的。 这种缺点可以通过异步加载来避免，1995年，随着Java第一版的发布，Java applets首次实现了异步加载，浏览器通过运行嵌入的Java applets可以在不刷新页面的情况下与服务器交换数据，随后，微软在1996年时在ie将iframe加入到HTML中，支持局部刷新网页。1998年前后，Outlook Web Access小组写成了允许客户端脚本发送HTTP请求（XMLHTTP）的第一个组件。该组件原属于微软Exchange Server，并且迅速地成为了Internet Explorer 4.0[2]的一部分。部分观察家认为，Outlook Web Access是第一个应用了Ajax技术的成功的商业应用程序，并成为包括Oddpost的网络邮件产品在内的许多产品的领头羊。 2005年出，Google在其著名交互应用使用Ajax技术使得这项技术开始流行起来。
+ 维基百科-Ajax
+  2.ajax的优点和缺点
+-优点：不更新整个页面的前提下维护数据，避免在网络上发送无用的数据。 -缺点：可能破坏浏览器后退和保存书签的功能。浏览器之间的兼容问题
+3.在应用程序中使用Ajax
+3.1 创建XMLHttpRequest对象
+var req; if (window.ActiveXObject) { req = new ActiveXObject(&amp;#39;Microsoft.XMLHTTP&amp;#39;); } else if (window.XMLHttpRequest) { req = new XMLHttpRequest(); } 3.2 打开与服务器的链接，指定请求的url和请求方式
+//基本语法：req.open(type, url, async, user, password); //type:请求类型，常用的有GET和POST //url:请求的url地址 //async:true or false,标识请求是否异步。 // 默认是异步，异步的情况下状态改变的时候会调用onreadystatechange属性指定的回调函数, // 函数是可选的。 //user，password与权限有关 req.open(&amp;#39;GET&amp;#39;, &amp;#39;/test/get&amp;#39;); req.onreadystatechange = () =&amp;gt; { if (req.</description>
+    </item>
+    
+  </channel>
+</rss>
