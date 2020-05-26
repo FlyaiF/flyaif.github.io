@@ -6,8 +6,34 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>zh-CN</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Fri, 20 Mar 2020 16:50:58 +0800</lastBuildDate>
+		<lastBuildDate>Tue, 19 May 2020 14:05:29 +0800</lastBuildDate>
 		<atom:link href="https://blog.flyaif.com/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>去除 Tomcat 默认报错页面版本信息</title>
+			<link>https://blog.flyaif.com/posts/mask-error-report-for-tomcat/</link>
+			<pubDate>Tue, 19 May 2020 14:05:29 +0800</pubDate>
+			
+			<guid>https://blog.flyaif.com/posts/mask-error-report-for-tomcat/</guid>
+			<description>Tomcat 默认报错页面屏蔽敏感信息 Tomcat 返回的错误页面包含了 Tomcat 版本信息，可能被攻击者利用，在网上 搜罗一圈后发现又一个简单的配置方法可以隐藏出错后的版本信息。 只要将下面的 Valve 配置到 server.xml 中的 Host 段，就可以屏蔽报错 时候的版本号。
+&amp;lt;Host&amp;gt; &amp;lt;!-- other --&amp;gt; &amp;lt;Valve className=&amp;#34;org.apache.catalina.valves.ErrorReportValve&amp;#34; showReport=&amp;#34;false&amp;#34; showServerInfo=&amp;#34;false&amp;#34;/&amp;gt; &amp;lt;/Host&amp;gt;  https://stackoverflow.com/questions/2266475/which-is-the-best-way-to-mask-hide-tomcat-version-from-error-pages
+ </description>
+			<content type="html"><![CDATA[<h1 id="tomcat-默认报错页面屏蔽敏感信息">Tomcat 默认报错页面屏蔽敏感信息</h1>
+<p>Tomcat 返回的错误页面包含了 Tomcat 版本信息，可能被攻击者利用，在网上
+搜罗一圈后发现又一个简单的配置方法可以隐藏出错后的版本信息。
+只要将下面的 Valve 配置到 server.xml 中的 Host 段，就可以屏蔽报错
+时候的版本号。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;Host&gt;</span>
+	<span class="c">&lt;!-- other --&gt;</span>
+	<span class="nt">&lt;Valve</span> <span class="na">className=</span><span class="s">&#34;org.apache.catalina.valves.ErrorReportValve&#34;</span>
+		<span class="na">showReport=</span><span class="s">&#34;false&#34;</span> 
+		<span class="na">showServerInfo=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span> 
+<span class="nt">&lt;/Host&gt;</span>
+</code></pre></div><blockquote>
+<p><a href="which-is-the-best-way-to-mask-hide-tomcat-version-from-error-pages">https://stackoverflow.com/questions/2266475/which-is-the-best-way-to-mask-hide-tomcat-version-from-error-pages</a></p>
+</blockquote>
+]]></content>
+		</item>
 		
 		<item>
 			<title>使用 expect 和 scp 分发文件给其他主机</title>

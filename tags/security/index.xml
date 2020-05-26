@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>security on FlyaiF&#39;s Blog</title>
+    <link>https://blog.flyaif.com/tags/security/</link>
+    <description>Recent content in security on FlyaiF&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 19 May 2020 14:05:29 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.flyaif.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>去除 Tomcat 默认报错页面版本信息</title>
+      <link>https://blog.flyaif.com/posts/mask-error-report-for-tomcat/</link>
+      <pubDate>Tue, 19 May 2020 14:05:29 +0800</pubDate>
+      
+      <guid>https://blog.flyaif.com/posts/mask-error-report-for-tomcat/</guid>
+      <description>Tomcat 默认报错页面屏蔽敏感信息 Tomcat 返回的错误页面包含了 Tomcat 版本信息，可能被攻击者利用，在网上 搜罗一圈后发现又一个简单的配置方法可以隐藏出错后的版本信息。 只要将下面的 Valve 配置到 server.xml 中的 Host 段，就可以屏蔽报错 时候的版本号。
+&amp;lt;Host&amp;gt; &amp;lt;!-- other --&amp;gt; &amp;lt;Valve className=&amp;#34;org.apache.catalina.valves.ErrorReportValve&amp;#34; showReport=&amp;#34;false&amp;#34; showServerInfo=&amp;#34;false&amp;#34;/&amp;gt; &amp;lt;/Host&amp;gt;  https://stackoverflow.com/questions/2266475/which-is-the-best-way-to-mask-hide-tomcat-version-from-error-pages
+ </description>
+    </item>
+    
+  </channel>
+</rss>

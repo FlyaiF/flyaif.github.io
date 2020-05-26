@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.flyaif.com/posts/</loc>
+    <lastmod>2020-05-19T14:05:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/tags/security/</loc>
+    <lastmod>2020-05-19T14:05:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/tags/</loc>
+    <lastmod>2020-05-19T14:05:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/tags/tomcat/</loc>
+    <lastmod>2020-05-19T14:05:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.flyaif.com/posts/mask-error-report-for-tomcat/</loc>
+    <lastmod>2020-05-19T14:05:29+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.flyaif.com/about/</loc>
     <lastmod>2020-04-29T11:14:16+08:00</lastmod>
   </url>
@@ -10,11 +35,6 @@
   <url>
     <loc>https://blog.flyaif.com/</loc>
     <lastmod>2020-04-29T11:14:16+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.flyaif.com/posts/</loc>
-    <lastmod>2020-03-20T16:50:58+08:00</lastmod>
   </url>
   
   <url>
@@ -39,11 +59,6 @@
   
   <url>
     <loc>https://blog.flyaif.com/posts/elastic-search-memo/</loc>
-    <lastmod>2018-05-03T17:24:16+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.flyaif.com/tags/</loc>
     <lastmod>2018-05-03T17:24:16+08:00</lastmod>
   </url>
   
