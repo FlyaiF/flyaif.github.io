@@ -11,13 +11,14 @@
 <meta itemprop="description" content="Tomcat 默认报错页面屏蔽敏感信息 Tomcat 返回的错误页面包含了 Tomcat 版本信息，可能被攻击者利用，在网上 搜罗一圈后发现又一个简单的配置方法可以隐藏出错后的版本信息。 只要将下面的 Valve 配置到 server.xml 中的 Host 段，就可以屏蔽报错 时候的版本号。
 &lt;Host&gt; &lt;!-- other --&gt; &lt;Valve className=&#34;org.apache.catalina.valves.ErrorReportValve&#34; showReport=&#34;false&#34; showServerInfo=&#34;false&#34;/&gt; &lt;/Host&gt;  https://stackoverflow.com/questions/2266475/which-is-the-best-way-to-mask-hide-tomcat-version-from-error-pages
  ">
-<meta itemprop="datePublished" content="2020-05-19T14:05:29&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-19T14:05:29&#43;08:00" />
+<meta itemprop="datePublished" content="2020-05-19T14:05:29+08:00" />
+<meta itemprop="dateModified" content="2020-05-19T14:05:29+08:00" />
 <meta itemprop="wordCount" content="25">
 
 
 
-<meta itemprop="keywords" content="security,tomcat," /><meta property="og:title" content="去除 Tomcat 默认报错页面版本信息" />
+<meta itemprop="keywords" content="security,tomcat," />
+<meta property="og:title" content="去除 Tomcat 默认报错页面版本信息" />
 <meta property="og:description" content="Tomcat 默认报错页面屏蔽敏感信息 Tomcat 返回的错误页面包含了 Tomcat 版本信息，可能被攻击者利用，在网上 搜罗一圈后发现又一个简单的配置方法可以隐藏出错后的版本信息。 只要将下面的 Valve 配置到 server.xml 中的 Host 段，就可以屏蔽报错 时候的版本号。
 &lt;Host&gt; &lt;!-- other --&gt; &lt;Valve className=&#34;org.apache.catalina.valves.ErrorReportValve&#34; showReport=&#34;false&#34; showServerInfo=&#34;false&#34;/&gt; &lt;/Host&gt;  https://stackoverflow.com/questions/2266475/which-is-the-best-way-to-mask-hide-tomcat-version-from-error-pages
  " />
@@ -74,7 +75,7 @@
 	<main class="site-main section-inner animated fadeIn faster">
 		<article class="thin">
 			<header class="post-header">
-				<div class="post-meta"><span>2020-20-05</span></div>
+				<div class="post-meta"><span>May 19, 2020</span></div>
 				<h1>去除 Tomcat 默认报错页面版本信息</h1>
 			</header>
 			<div class="content">
@@ -100,10 +101,13 @@
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://blog.flyaif.com/tags/security">security</a></span><span class="tag"><a href="https://blog.flyaif.com/tags/tomcat">tomcat</a></span>
 				</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-19 14:05</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-19 14:05 &#43;0800</p>
 			</footer>
 		</article>
 		<div class="post-nav thin">
+			<a class="next-post" href="https://blog.flyaif.com/posts/enable-max-processor-freq-control/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;</span><br><span>笔记本使用电源计划控制 CPU 最大频率</span>
+			</a>
 			<a class="prev-post" href="https://blog.flyaif.com/posts/use-expect-to-distribute-file-between-hosts/">
 				<span class="post-nav-label">&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>使用 expect 和 scp 分发文件给其他主机</span>
 			</a>
@@ -113,7 +117,7 @@
 	</main>
 
 	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2020 <a href="https://blog.flyaif.com">FlyaiF</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>&copy; 2022 <a href="https://blog.flyaif.com">FlyaiF</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
 		<p>
 			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://blog.flyaif.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
 		</p>

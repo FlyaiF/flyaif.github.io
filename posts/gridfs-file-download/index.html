@@ -11,13 +11,14 @@
 <meta itemprop="description" content="GridFS 文件下载 GridFs 简介 我们在使用MongoDB存储文件的过程中，由于单个 bson 具有大小限制，因此我们不能存储大于这个上限的文件，GridFs 将文件分为若干部分（chunk），每个部分存储为一个独立的document，GridFs 默认的 chunk size 是 255kB，也就是说它将文件按255kB等分，最后一个 chunk 是不足的部分，可能不足 255kB；如果一个文件不足一个 chunk 的大小，那么就存储在一个 chunk，这个里面包含了文件和一些元数据。
 GridFs 的优点  文件的大小超出了 16M 由于单个 bson 大小的限制，因而将文件存放于 GridFs 中。 对于大文件，读取时不想将整个文件载入内存中 由于文件时存放在多个 chunk 中的，读取文件的时候可以部分载入，同时访问文件的时候可以任意跳转，直接跳过某些部分请求感兴趣的部分。例如视频、音频文件。 在多个系统间共享文件 搭建 Mongo 集群，在集群间共享文件。  文件存储结构 files collection files 这个集合里面的每一条记录代表了 GridFs 中的一个文件
 { &#34;_id&#34;: &lt;objectId&gt;, &#34;length&#34;: &lt;num&gt;, &#34;chunkSize&#34;: &lt;num&gt;, &#34;uploadDate&#34;: &lt;timestamp&gt;, &#34;md5&#34;: &lt;hash&gt;, &#34;filename&#34;: &lt;string&gt;, &#34;contentType&#34;: &lt;string&gt;, &#34;aliases&#34;: &lt;string array&gt;, &#34;metadata&#34;: &lt;any&gt;, }  files._id 文档唯一标识 files.length 文件长度 files.">
-<meta itemprop="datePublished" content="2019-07-14T17:20:04&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-14T17:20:04&#43;08:00" />
+<meta itemprop="datePublished" content="2019-07-14T17:20:04+08:00" />
+<meta itemprop="dateModified" content="2019-07-14T17:20:04+08:00" />
 <meta itemprop="wordCount" content="219">
 
 
 
-<meta itemprop="keywords" content="" /><meta property="og:title" content="Java API 从 GridFS 中下载文件" />
+<meta itemprop="keywords" content="" />
+<meta property="og:title" content="Java API 从 GridFS 中下载文件" />
 <meta property="og:description" content="GridFS 文件下载 GridFs 简介 我们在使用MongoDB存储文件的过程中，由于单个 bson 具有大小限制，因此我们不能存储大于这个上限的文件，GridFs 将文件分为若干部分（chunk），每个部分存储为一个独立的document，GridFs 默认的 chunk size 是 255kB，也就是说它将文件按255kB等分，最后一个 chunk 是不足的部分，可能不足 255kB；如果一个文件不足一个 chunk 的大小，那么就存储在一个 chunk，这个里面包含了文件和一些元数据。
 GridFs 的优点  文件的大小超出了 16M 由于单个 bson 大小的限制，因而将文件存放于 GridFs 中。 对于大文件，读取时不想将整个文件载入内存中 由于文件时存放在多个 chunk 中的，读取文件的时候可以部分载入，同时访问文件的时候可以任意跳转，直接跳过某些部分请求感兴趣的部分。例如视频、音频文件。 在多个系统间共享文件 搭建 Mongo 集群，在集群间共享文件。  文件存储结构 files collection files 这个集合里面的每一条记录代表了 GridFs 中的一个文件
 { &#34;_id&#34;: &lt;objectId&gt;, &#34;length&#34;: &lt;num&gt;, &#34;chunkSize&#34;: &lt;num&gt;, &#34;uploadDate&#34;: &lt;timestamp&gt;, &#34;md5&#34;: &lt;hash&gt;, &#34;filename&#34;: &lt;string&gt;, &#34;contentType&#34;: &lt;string&gt;, &#34;aliases&#34;: &lt;string array&gt;, &#34;metadata&#34;: &lt;any&gt;, }  files._id 文档唯一标识 files.length 文件长度 files." />
@@ -74,7 +75,7 @@ GridFs 的优点  文件的大小超出了 16M 由于单个 bson 大小的限制
 	<main class="site-main section-inner animated fadeIn faster">
 		<article class="thin">
 			<header class="post-header">
-				<div class="post-meta"><span>2019-19-07</span></div>
+				<div class="post-meta"><span>Jul 14, 2019</span></div>
 				<h1>Java API 从 GridFS 中下载文件</h1>
 			</header>
 			<div class="content">
@@ -170,7 +171,7 @@ chunk 里面的数据，以 BSON 形式存放。</li>
 			<hr class="post-end">
 			<footer class="post-info">
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-14 17:20</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-14 17:20 &#43;0800</p>
 			</footer>
 		</article>
 		<div class="post-nav thin">
@@ -186,7 +187,7 @@ chunk 里面的数据，以 BSON 形式存放。</li>
 	</main>
 
 	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2020 <a href="https://blog.flyaif.com">FlyaiF</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>&copy; 2022 <a href="https://blog.flyaif.com">FlyaiF</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
 		<p>
 			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://blog.flyaif.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
 		</p>

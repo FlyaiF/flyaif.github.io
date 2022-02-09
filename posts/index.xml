@@ -6,8 +6,45 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>zh-CN</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Tue, 19 May 2020 14:05:29 +0800</lastBuildDate>
+		<lastBuildDate>Mon, 08 Feb 2021 19:37:58 +0800</lastBuildDate>
 		<atom:link href="https://blog.flyaif.com/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>笔记本使用电源计划控制 CPU 最大频率</title>
+			<link>https://blog.flyaif.com/posts/enable-max-processor-freq-control/</link>
+			<pubDate>Mon, 08 Feb 2021 19:37:58 +0800</pubDate>
+			
+			<guid>https://blog.flyaif.com/posts/enable-max-processor-freq-control/</guid>
+			<description>起因 笔记本风扇坏了，发出的噪音实在太大，就像一个不停震动的手机一样，间歇性发出异响。一时半会也没法修复（得买个新风扇），于是想出一计李代桃僵。
+限制 CPU 工作频率，让风扇主动不工作。
+实操 环境 Windows 10 企业版 10.0.19041.1415
+设置  打开控制面板 依次打开 控制面板\硬件和声音\电源选项\编辑计划设置 打开高级电源设置 -&amp;gt;处理器电源管理，就可以设置最大频率上限了。  如果你的 Windows 版本和我一样或者比较高，可能就找不到这个处理器电源管理（被微软隐藏了），所以还得开启这个选项。
+ 运行一个管理员权限的 cmd 窗口 执行 REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\75b0ae3f-bce0-45a7-8c89-c9611c25e100 /v Attributes /t REG_DWORD /d 2 /f 使用完如果想恢复原样，执行 powercfg -attributes SUB_PROCESSOR 75b0ae3f-bce0-45a7-8c89-c9611c25e100 +ATTRIB_HIDE  引用  https://www.tenforums.com/tutorials/95580-add-remove-maximum-processor-frequency-windows-10-power-options.html
+ </description>
+			<content type="html"><![CDATA[<h2 id="起因">起因</h2>
+<p>笔记本风扇坏了，发出的噪音实在太大，就像一个不停震动的手机一样，间歇性发出异响。一时半会也没法修复（得买个新风扇），于是想出一计李代桃僵。</p>
+<p>限制 CPU 工作频率，让风扇主动不工作。</p>
+<h2 id="实操">实操</h2>
+<h3 id="环境">环境</h3>
+<p>Windows 10 企业版 10.0.19041.1415</p>
+<h3 id="设置">设置</h3>
+<ol>
+<li>打开控制面板</li>
+<li>依次打开 <code>控制面板\硬件和声音\电源选项\编辑计划设置</code></li>
+<li>打开高级电源设置 -&gt;处理器电源管理，就可以设置最大频率上限了。</li>
+</ol>
+<p>如果你的 Windows 版本和我一样或者比较高，可能就找不到这个处理器电源管理（被微软隐藏了），所以还得开启这个选项。</p>
+<ol>
+<li>运行一个管理员权限的 cmd 窗口</li>
+<li>执行 <code>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\75b0ae3f-bce0-45a7-8c89-c9611c25e100 /v Attributes /t REG_DWORD /d 2 /f</code></li>
+<li>使用完如果想恢复原样，执行 <code>powercfg -attributes SUB_PROCESSOR 75b0ae3f-bce0-45a7-8c89-c9611c25e100 +ATTRIB_HIDE</code></li>
+</ol>
+<h2 id="引用">引用</h2>
+<blockquote>
+<p><a href="https://www.tenforums.com/tutorials/95580-add-remove-maximum-processor-frequency-windows-10-power-options.html">https://www.tenforums.com/tutorials/95580-add-remove-maximum-processor-frequency-windows-10-power-options.html</a></p>
+</blockquote>
+]]></content>
+		</item>
 		
 		<item>
 			<title>去除 Tomcat 默认报错页面版本信息</title>

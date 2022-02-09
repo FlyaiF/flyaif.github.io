@@ -17,13 +17,14 @@
 3.1 创建XMLHttpRequest对象
 var req; if (window.ActiveXObject) { req = new ActiveXObject(&#39;Microsoft.XMLHTTP&#39;); } else if (window.XMLHttpRequest) { req = new XMLHttpRequest(); } 3.2 打开与服务器的链接，指定请求的url和请求方式
 //基本语法：req.open(type, url, async, user, password); //type:请求类型，常用的有GET和POST //url:请求的url地址 //async:true or false,标识请求是否异步。 // 默认是异步，异步的情况下状态改变的时候会调用onreadystatechange属性指定的回调函数, // 函数是可选的。 //user，password与权限有关 req.open(&#39;GET&#39;, &#39;/test/get&#39;); req.onreadystatechange = () =&gt; { if (req.">
-<meta itemprop="datePublished" content="2018-03-30T09:26:04&#43;08:00" />
-<meta itemprop="dateModified" content="2018-03-30T09:26:04&#43;08:00" />
+<meta itemprop="datePublished" content="2018-03-30T09:26:04+08:00" />
+<meta itemprop="dateModified" content="2018-03-30T09:26:04+08:00" />
 <meta itemprop="wordCount" content="109">
 
 
 
-<meta itemprop="keywords" content="" /><meta property="og:title" content="Javascript AJAX简介" />
+<meta itemprop="keywords" content="" />
+<meta property="og:title" content="Javascript AJAX简介" />
 <meta property="og:description" content="Javascript ajax 请求 1.ajax简介
  全称：Asynchronous Javascript And Xml 普通页面刷新的时候不但从服务器获取了变化的部分，连同不变化的固定的部分也刷新了，这不变的一部分占用的网络带宽和服务器负载是没有必要的。 这种缺点可以通过异步加载来避免，1995年，随着Java第一版的发布，Java applets首次实现了异步加载，浏览器通过运行嵌入的Java applets可以在不刷新页面的情况下与服务器交换数据，随后，微软在1996年时在ie将iframe加入到HTML中，支持局部刷新网页。1998年前后，Outlook Web Access小组写成了允许客户端脚本发送HTTP请求（XMLHTTP）的第一个组件。该组件原属于微软Exchange Server，并且迅速地成为了Internet Explorer 4.0[2]的一部分。部分观察家认为，Outlook Web Access是第一个应用了Ajax技术的成功的商业应用程序，并成为包括Oddpost的网络邮件产品在内的许多产品的领头羊。 2005年出，Google在其著名交互应用使用Ajax技术使得这项技术开始流行起来。
  维基百科-Ajax
@@ -92,7 +93,7 @@ var req; if (window.ActiveXObject) { req = new ActiveXObject(&#39;Microsoft.XMLH
 	<main class="site-main section-inner animated fadeIn faster">
 		<article class="thin">
 			<header class="post-header">
-				<div class="post-meta"><span>2018-18-03</span></div>
+				<div class="post-meta"><span>Mar 30, 2018</span></div>
 				<h1>Javascript AJAX简介</h1>
 			</header>
 			<div class="content">
@@ -153,7 +154,7 @@ responseXML,取决于响应的内容，responseText表示响应是普通的文�
 			<hr class="post-end">
 			<footer class="post-info">
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-03-30 09:26</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-03-30 09:26 &#43;0800</p>
 			</footer>
 		</article>
 		<div class="post-nav thin">
@@ -166,7 +167,7 @@ responseXML,取决于响应的内容，responseText表示响应是普通的文�
 	</main>
 
 	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2020 <a href="https://blog.flyaif.com">FlyaiF</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>&copy; 2022 <a href="https://blog.flyaif.com">FlyaiF</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
 		<p>
 			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://blog.flyaif.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
 		</p>
